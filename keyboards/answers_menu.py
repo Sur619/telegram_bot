@@ -1,10 +1,32 @@
-from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
+from aiogram import types
 
 
 def answers_menu_kb():
-    kb = [
-        [KeyboardButton("Загальнопрофільна підготовка"), KeyboardButton("Вогнева підготовка")],
-        [KeyboardButton("Тактична підготовка"), KeyboardButton("Функціональна підготовка")],
-        [KeyboardButton("У головне меню")]
-    ]
-    return ReplyKeyboardMarkup(keyboard=kb, resize_keyboard=True)
+    return types.ReplyKeyboardMarkup(
+        keyboard=[
+            [
+                types.KeyboardButton(text="Загальнопрофільна підготовка"),
+                types.KeyboardButton(text="Вогнева підготовка")
+            ],
+            [
+                types.KeyboardButton(text="Тактична підготовка"),
+                types.KeyboardButton(text="Функціональна підготовка")
+            ],
+            [
+                types.KeyboardButton(text="У головне меню↩️")
+            ]
+        ],
+        resize_keyboard=True
+    )
+
+
+def general_training_kb(selected_option=None):
+    return types.ReplyKeyboardMarkup(
+        keyboard=[
+            [types.KeyboardButton(text="📌Безпека життєдіяльності📌" if selected_option == "Безпека життєдіяльності" else "Безпека життєдіяльності")],
+            [types.KeyboardButton(text="📌Домедична підготовка📌" if selected_option == "Домедична підготовка" else "Домедична підготовка")],
+            [types.KeyboardButton(text="📌Психологічна підготовка📌" if selected_option == "Психологічна підготовка" else "Психологічна підготовка")],
+            [types.KeyboardButton(text="Назад◀️")]
+        ],
+        resize_keyboard=True
+    )

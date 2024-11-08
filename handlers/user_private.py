@@ -93,18 +93,7 @@
 #     await message.answer('Оберіть опцію:', reply_markup=keyboard)
 #
 #
-# # Handler for 'Загальнопрофільна підготовка' button
-# @user_private_router.message(F.text == 'Загальнопрофільна підготовка')
-# async def answers1_cmd(message: types.Message):
-#     logging.info(f"User {message.from_user.id} selected 'Загальнопрофільна підготовка'.")
-#     kb = [
-#         [types.KeyboardButton(text='Безпека життєдіяльності')],
-#         [types.KeyboardButton(text='Домедична підготовка')],
-#         [types.KeyboardButton(text='Психологічна підготовка')],
-#         [types.KeyboardButton(text='Назад')]  # Back button to go to 'Пошук Відповідей'
-#     ]
-#     keyboard = types.ReplyKeyboardMarkup(keyboard=kb, resize_keyboard=True)
-#     await message.answer('Оберіть опцію:', reply_markup=keyboard)
+#
 #
 #
 # # Handler for 'Безпека життєдіяльності' button
@@ -138,12 +127,7 @@
 #     await answers_cmd(message)  # Calls the 'answers_cmd' function to return to the previous menu
 #
 #
-# # Handler to go back to the main menu
-# @user_private_router.message(F.text.in_(['У головне меню', 'Меню']))
-# async def back_to_main_menu(message: types.Message):
-#     logging.info(f"User {message.from_user.id} returned to the main menu.")
-#     await main_menu(message)
-#
+
 #
 # # About command
 # @user_private_router.message(Command('about'))

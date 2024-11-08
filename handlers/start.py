@@ -1,6 +1,6 @@
 import os
 import logging
-from aiogram import types, Router
+from aiogram import types, Router, F
 from aiogram.filters import CommandStart, Command
 from aiogram.types import FSInputFile
 from bot_instance import bot
@@ -12,7 +12,6 @@ start_router = Router()
 
 
 @start_router.message(CommandStart())
-@start_router.message(Command('menu'))
 async def start_cmd(message: types.Message):
     video_path = 'D:/Python/Django/Projects/Telegram_bot/content/video.mp4'
     logging.info(f"User {message.from_user.id} started the bot with /start or /menu.")
@@ -28,5 +27,14 @@ async def start_cmd(message: types.Message):
         f"{message.from_user.first_name}, вітаємо!\n"
         "Перед початком роботи з ботом ознайомтесь з розділом \"Правила користування\"."
     )
+    keyboard = main_menu_kb()
+    await message.answer("Оберіть опцію:", reply_markup=keyboard)
+
+
+# Handler to go back to the main menu
+@start_router.message(Command('menu'))
+@start_router.message(F.text == 'У головне меню↩️')
+async def back_to_main_menu(message: types.Message):
+    logging.info(f"User {message.from_user.id} returned to the main menu.")
     keyboard = main_menu_kb()
     await message.answer("Оберіть опцію:", reply_markup=keyboard)

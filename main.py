@@ -3,7 +3,8 @@ import logging
 from aiogram import Dispatcher, types
 from bot_instance import bot  # Импорт бота из отдельного файла
 from common.bot_cmd_list import private  # Импорт списка команд
-from handlers import start, menu, answers, info
+from handlers import start, menu, info, answers_menu
+from handlers.answers_menu import general_training
 
 # Конфигурируем логирование
 logging.basicConfig(level=logging.INFO)
@@ -17,7 +18,7 @@ dp = Dispatcher()
 # Подключение всех маршрутов из отдельных модулей
 dp.include_router(start.start_router)  # Обработчики команды /start и меню
 dp.include_router(menu.menu_router)  # Обработчики кнопок главного меню
-dp.include_router(answers.answers_router)  # Обработчики меню 'Пошук Відповідей'
+dp.include_router(answers_menu.general_training_router)  # Обработчики меню 'Пошук Відповідей'
 dp.include_router(info.info_router)  # Обработчики команд /about и /payment
 
 
