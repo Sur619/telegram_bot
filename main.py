@@ -3,7 +3,7 @@ import logging
 from aiogram import Dispatcher, types
 from bot_instance import bot  # Импорт бота из отдельного файла
 from common.bot_cmd_list import private  # Импорт списка команд
-from handlers import start, menu, info, answers_menu
+from handlers import start, menu, info, answers_menu, rules_menu
 from handlers.answers_menu import general_training
 
 # Конфигурируем логирование
@@ -20,6 +20,10 @@ dp.include_router(start.start_router)  # Обработчики команды /
 dp.include_router(menu.menu_router)  # Обработчики кнопок главного меню
 dp.include_router(answers_menu.general_training_router)  # Обработчики меню 'Пошук Відповідей'
 dp.include_router(info.info_router)  # Обработчики команд /about и /payment
+dp.include_router(rules_menu.rules_menu_router)
+dp.include_router(answers_menu.fire_preparation_router)
+dp.include_router(answers_menu.functional_training_router)
+dp.include_router(answers_menu.tactical_training_router)
 
 
 async def main() -> None:
