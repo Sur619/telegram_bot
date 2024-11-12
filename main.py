@@ -16,14 +16,20 @@ ALLOWED_UPDATES = ['message', 'edited_message', 'callback_query']
 # Инициализация диспетчера и добавление роутера
 dp = Dispatcher()
 # Подключение всех маршрутов из отдельных модулей
-dp.include_router(start.start_router)  # Обработчики команды /start и меню
-dp.include_router(menu.menu_router)  # Обработчики кнопок главного меню
-dp.include_router(answers_menu.general_training_router)  # Обработчики меню 'Пошук Відповідей'
-dp.include_router(info.info_router)  # Обработчики команд /about и /payment
-dp.include_router(rules_menu.rules_menu_router)
-dp.include_router(answers_menu.fire_preparation_router)
-dp.include_router(answers_menu.functional_training_router)
-dp.include_router(answers_menu.tactical_training_router)
+dp.include_routers(start.start_router, menu.menu_router, answers_menu.general_training_router, info.info_router,
+                   rules_menu.rules_menu_router, answers_menu.fire_preparation_router,
+                   answers_menu.functional_training_router,
+                   answers_menu.tactical_training_router, answers_menu.additional_question_router)
+
+
+# dp.include_router(menu.menu_router)
+# dp.include_router(answers_menu.general_training_router)
+# dp.include_router(info.info_router)
+# dp.include_router(rules_menu.rules_menu_router)
+# dp.include_router(answers_menu.fire_preparation_router)
+# dp.include_router(answers_menu.functional_training_router)
+# dp.include_router(answers_menu.tactical_training_router)
+# dp.include_router(answers_menu.additional_question_router)
 
 
 async def main() -> None:

@@ -13,6 +13,9 @@ def answers_menu_kb():
                 types.KeyboardButton(text="Функціональна підготовка")
             ],
             [
+                types.KeyboardButton(text="Додаткові заняття")
+            ],
+            [
                 types.KeyboardButton(text="У головне меню↩️")
             ]
         ],

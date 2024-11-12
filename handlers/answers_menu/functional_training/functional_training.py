@@ -10,7 +10,7 @@ functional_training_router = Router()
 
 # Handler for 'Загальнопрофільна підготовка' button
 @functional_training_router.message(F.text == 'Тактична підготовка')
-async def general_training(message: types.Message):
+async def functional_training(message: types.Message):
     logging.info(f"User {message.from_user.id} selected 'Тактична підготовка'.")
     keyboard = answers_menu_kb()
     await in_development(message, keyboard=keyboard)
