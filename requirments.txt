@@ -3,3 +3,4 @@ python-dotenv==1.0.1
 aiogram==3.14.0
 sqlalchemy==2.0.36
 aiosqlite==0.20.0
+asyncpg==0.30.0
