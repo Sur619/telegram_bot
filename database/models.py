@@ -14,4 +14,31 @@ class GeneralTraining(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)  # auto-increment is implicit
     question: Mapped[str] = mapped_column(Text)
     answer: Mapped[str] = mapped_column(Text)
-    variables: Mapped[str] = mapped_column(Text)
+    variables: Mapped[str] = mapped_column(Text, nullable=True)
+
+
+class TacticalTraining(Base):
+    __tablename__ = 'tactical_training'
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)  # auto-increment is implicit
+    question: Mapped[str] = mapped_column(Text)
+    answer: Mapped[str] = mapped_column(Text)
+    variables: Mapped[str] = mapped_column(Text, nullable=True)
+
+
+class FunctionalTraining(Base):
+    __tablename__ = 'functional_training'
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)  # auto-increment is implicit
+    question: Mapped[str] = mapped_column(Text)
+    answer: Mapped[str] = mapped_column(Text)
+    variables: Mapped[str] = mapped_column(Text, nullable=True)
+
+
+class AdditionalQuestion(Base):
+    __tablename__ = 'additional_question'
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)  # auto-increment is implicit
+    question: Mapped[str] = mapped_column(Text)
+    answer: Mapped[str] = mapped_column(Text)
+    variables: Mapped[str] = mapped_column(Text, nullable=True)

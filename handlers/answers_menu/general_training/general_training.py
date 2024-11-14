@@ -1,12 +1,12 @@
 from aiogram import Router, types, F
-from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
-from sqlalchemy import select, or_, func
+from sqlalchemy import select, or_
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.orm import Session
 
 from database.models import GeneralTraining
 from keyboards.answers_menu import general_training_kb, answers_menu_kb
 import logging
+
+from keyboards.keyboard_for_search import create_keyboard
 
 general_training_router = Router()
 
@@ -44,12 +44,16 @@ async def go_back(message: types.Message):
     await message.answer('Повернення в головне меню', reply_markup=keyboard)
 
 
-from sqlalchemy import func
-
-
+# Handler to search for questions
 @general_training_router.message(F.text)
 async def search_questions(message: types.Message, session: AsyncSession):
-    query = message.text  # Оставляем оригинальный регистр, так как ilike сам по себе не чувствителен к регистру
+    query = message.text
+
+    # Ignore specific commands that should not trigger a search
+    if query in ["Тактична підготовка", "Загальнопрофільна підготовка", "Функціональна підготовка",
+                 "Вогнева підготовка", "Додаткові заняття"]:
+        return
+
     logging.info(f"User {message.from_user.id} searching for '{query}'.")
 
     stmt = select(GeneralTraining).where(
@@ -62,20 +66,21 @@ async def search_questions(message: types.Message, session: AsyncSession):
     questions = results.scalars().all()
 
     if questions:
-        keyboard = InlineKeyboardMarkup(inline_keyboard=[])
-        for question in questions[:10]:
-            button_text = f"• {question.id}. {question.question[:30]}..."
-            keyboard.inline_keyboard.append(
-                [InlineKeyboardButton(text=button_text, callback_data=f"show_{question.id}")])
-
+        keyboard = await create_keyboard(questions)
         await message.answer("Результаты поиска:", reply_markup=keyboard)
     else:
         await message.answer("Ничего не найдено.", reply_markup=types.ReplyKeyboardRemove())
 
 
+# Callback handler to show the answer for a selected question
 @general_training_router.callback_query(F.data.startswith("show_"))
 async def show_answer(callback_query: types.CallbackQuery, session: AsyncSession):
-    question_id = int(callback_query.data.split("_")[1])
+    try:
+        question_id = int(callback_query.data.split("_")[1])  # Parse the question ID safely
+    except (IndexError, ValueError):
+        await callback_query.message.answer("Некорректный запрос.")
+        await callback_query.answer()
+        return
 
     result = await session.get(GeneralTraining, question_id)
     if result:

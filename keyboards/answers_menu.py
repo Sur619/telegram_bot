@@ -26,9 +26,23 @@ def answers_menu_kb():
 def general_training_kb(selected_option=None):
     return types.ReplyKeyboardMarkup(
         keyboard=[
-            [types.KeyboardButton(text="📌Безпека життєдіяльності📌" if selected_option == "Безпека життєдіяльності" else "Безпека життєдіяльності")],
-            [types.KeyboardButton(text="📌Домедична підготовка📌" if selected_option == "Домедична підготовка" else "Домедична підготовка")],
-            [types.KeyboardButton(text="📌Психологічна підготовка📌" if selected_option == "Психологічна підготовка" else "Психологічна підготовка")],
+            [types.KeyboardButton(
+                text="📌Безпека життєдіяльності📌" if selected_option == "Безпека життєдіяльності" else "Безпека життєдіяльності")],
+            [types.KeyboardButton(
+                text="📌Домедична підготовка📌" if selected_option == "Домедична підготовка" else "Домедична підготовка")],
+            [types.KeyboardButton(
+                text="📌Психологічна підготовка📌" if selected_option == "Психологічна підготовка" else "Психологічна підготовка")],
+            [types.KeyboardButton(text="Назад◀️")]
+        ],
+        resize_keyboard=True
+    )
+
+
+def tactical_training_kb(selected_option=None):
+    return types.ReplyKeyboardMarkup(
+        keyboard=[
+            [types.KeyboardButton(
+                text="📌Тактика дій📌" if selected_option == "Тактика дій" else "Тактика дій")],
             [types.KeyboardButton(text="Назад◀️")]
         ],
         resize_keyboard=True
