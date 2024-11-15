@@ -4,8 +4,11 @@ from aiogram import Dispatcher, types
 from bot_instance import bot  # Импорт бота из отдельного файла
 from common.bot_cmd_list import private  # Импорт списка команд
 from database.engine import create_db, drop_db, session_maker
-from handlers import start, menu, info, answers_menu, rules_menu
-from handlers.answers_menu import general_training
+from handlers import start, menu, info, answers_menu, rules_menu, rules_menu_router
+from handlers.answers_menu.handlers import router
+from handlers.info import info_router
+from handlers.menu import menu_router
+from handlers.start import start_router
 from middlewares.db import DataBaseSession
 
 # Конфигурируем логирование
@@ -17,16 +20,11 @@ logger = logging.getLogger(__name__)
 
 # Инициализация диспетчера и добавление роутера
 dp = Dispatcher()
-# Подключение всех маршрутов из отдельных модулей
-dp.include_router(start.start_router)
-dp.include_router(menu.menu_router)
-dp.include_router(answers_menu.tactical_training_router)
-dp.include_router(answers_menu.general_training_router)
-dp.include_router(info.info_router)
-dp.include_router(rules_menu.rules_menu_router)
-dp.include_router(answers_menu.fire_preparation_router)
-dp.include_router(answers_menu.functional_training_router)
-dp.include_router(answers_menu.additional_question_router)
+dp.include_router(start_router)
+dp.include_router(menu_router)
+dp.include_router(router)
+dp.include_router(info_router)
+dp.include_router(rules_menu_router)
 
 
 async def on_startup(bot):
