@@ -18,10 +18,15 @@ logger = logging.getLogger(__name__)
 # Инициализация диспетчера и добавление роутера
 dp = Dispatcher()
 # Подключение всех маршрутов из отдельных модулей
-dp.include_routers(start.start_router, menu.menu_router, answers_menu.general_training_router, info.info_router,
-                   rules_menu.rules_menu_router, answers_menu.fire_preparation_router,
-                   answers_menu.functional_training_router,
-                   answers_menu.tactical_training_router, answers_menu.additional_question_router)
+dp.include_router(start.start_router)
+dp.include_router(menu.menu_router)
+dp.include_router(answers_menu.tactical_training_router)
+dp.include_router(answers_menu.general_training_router)
+dp.include_router(info.info_router)
+dp.include_router(rules_menu.rules_menu_router)
+dp.include_router(answers_menu.fire_preparation_router)
+dp.include_router(answers_menu.functional_training_router)
+dp.include_router(answers_menu.additional_question_router)
 
 
 async def on_startup(bot):
@@ -47,7 +52,7 @@ async def main() -> None:
 
         # Запускаем поллинг
         logger.info("Starting bot polling...")
-        await dp.start_polling(bot)#allowed_updates=ALLOWED_UPDATES
+        await dp.start_polling(bot)  # allowed_updates=ALLOWED_UPDATES
 
 
     except Exception as e:
